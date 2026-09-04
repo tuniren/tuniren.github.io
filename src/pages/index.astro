@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+import { SITE_DESCRIPTION } from '../consts';
+import { getPublishedPosts } from '../lib/posts';
+
+const posts = await getPublishedPosts();
+const recentPosts = posts.slice(0, 3);
+---
+
+<BaseLayout description={SITE_DESCRIPTION}>
+  <section class="home">
+    <div class="home-intro">
+      <h1>技术笔记</h1>
+      <p>{SITE_DESCRIPTION}。这里优先保存可复查、可迁移、可执行的工程记录。</p>
+    </div>
+
+    <section class="doc-section">
+      <h2>使用方式</h2>
+      <ul class="plain-list">
+        <li><a href="/blog/">按时间阅读全部文章</a></li>
+        <li><a href="/tags/">按主题筛选笔记</a></li>
+        <li><a href="/rss.xml">订阅 RSS 更新</a></li>
+      </ul>
+    </section>
+
+    <section class="doc-section">
+      <h2>记录格式</h2>
+      <ol class="plain-list">
+        <li>上下文：问题出现的系统、版本、环境和触发条件。</li>
+        <li>约束：时间、兼容性、成本、风险和维护边界。</li>
+        <li>取舍：备选方案、选择原因和放弃原因。</li>
+        <li>证据：命令输出、测试结果、指标、截图或复盘结论。</li>
+      </ol>
+    </section>
+
+    <section class="doc-section">
+      <div class="section-heading">
+        <h2>最近更新</h2>
+      </div>
+      <PostList posts={recentPosts} />
+    </section>
+  </section>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+import PostList from '../../components/PostList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts } from '../../lib/posts';
+
+const posts = await getPublishedPosts();
+---
+
+<BaseLayout title="文章" description="Tuniren 的技术文章归档">
+  <section class="page-heading">
+    <h1>文章</h1>
+    <p>按发布时间倒序排列。</p>
+  </section>
+  <PostList posts={posts} />
+</BaseLayout>
