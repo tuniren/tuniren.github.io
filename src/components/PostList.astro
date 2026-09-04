@@ -1,0 +1,33 @@
+---
+interface Post {
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    tags: string[];
+  };
+}
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<section class="post-list" aria-label="文章列表">
+  {
+    posts.map((post) => (
+      <article class="post-row">
+        <div class="post-row-main">
+          <h2>
+            <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+          </h2>
+          <p>{post.data.description}</p>
+        </div>
+        <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('zh-CN')}</time>
+      </article>
+    ))
+  }
+</section>

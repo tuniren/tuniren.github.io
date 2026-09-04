@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllTags, getPublishedPosts } from '../../lib/posts';
+
+const tags = await getAllTags();
+const posts = await getPublishedPosts();
+const counts = new Map<string, number>();
+
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+---
+
+<BaseLayout title="标签" description="Tuniren 技术博客标签">
+  <section class="page-heading">
+    <h1>标签</h1>
+    <p>用主题维度浏览文章。</p>
+  </section>
+  <div class="tag-cloud">
+    {
+      tags.map((tag) => (
+        <a href={`/tags/${tag}/`}>
+          <span>{tag}</span>
+          <strong>{counts.get(tag)}</strong>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

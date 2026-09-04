@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+const pageTitle = title === SITE_TITLE ? SITE_TITLE : `${title} | ${SITE_TITLE}`;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      try {
+        const width = window.localStorage.getItem('reader-width') || 'default';
+        document.documentElement.classList.toggle('reader-wide', width === 'wide');
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Tuniren home">{SITE_TITLE}</a>
+      <nav class="nav" aria-label="主导航">
+        <a href="/blog/">文章</a>
+        <a href="/tags/">标签</a>
+        <a href="/rss.xml">RSS</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

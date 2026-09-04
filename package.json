@@ -1,0 +1,20 @@
+{
+  "name": "tuniren.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "release": "python scripts/release.py"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.5.1",
+    "astro": "^5.14.2",
+    "github-markdown-css": "^5.9.0",
+    "typescript": "^5.9.2"
+  }
+}
